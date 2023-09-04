@@ -11,20 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j // для логгирования
-@RequiredArgsConstructor // делаем конструктор
+@RequiredArgsConstructor
 @Service // реализуем сервис
-@Transactional(readOnly = true) // а надо?
+// @Transactional(readOnly = true) – не нужно было ставить эт аннотацию над классом. Получается, что у нас идет только считывание
 public class AnimalServiceImpl implements AnimalService {
 
     private final AnimalRepository animalRepository;
 
     @Override
+    @Transactional(readOnly = false)
     public void createAnimal(Animal animal) {
         log.info("Добавляем животное в таблицу: ", animal); // с помощью log добавляем запись в журнал
         Animal animal1 = animalRepository.save(animal);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Animal getAnimalById(Long id) {
         log.info("Вытаскиваем животное по id: ", id);
         return animalRepository.findById(id)
@@ -35,6 +37,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Animal> getAllAnimals() {
         log.info("Список животных по id: + \n");
         Iterable<Animal> authors = animalRepository.findAll();
@@ -44,12 +47,14 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void deleteAnimalById(Long id) {
         log.info("Удаление животного по id: ", id);
         animalRepository.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void updateAnimalNameById(Long id, String name) {
         log.info("Обновление животного по имени");
         animalRepository.updateAnimalById(id, name);

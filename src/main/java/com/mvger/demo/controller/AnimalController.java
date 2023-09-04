@@ -14,7 +14,7 @@ import java.util.List;
 @RestController // внести зависимость в билдгрэдл спринг бут стартер веб
 public class AnimalController {
 
-//    @Autowired Можно использовать, а можно не использовать.
+    @Autowired
     private AnimalService animalService;
 
     @GetMapping(path = "/animals") // делаем реквест по пути animals в url
@@ -23,7 +23,8 @@ public class AnimalController {
         return new ResponseEntity<>(allAnimals, HttpStatus.OK); // получаем ответ в браузере списком всех животных
     }
 
-    @GetMapping(path = "/animals/{id}", produces = MediaType.APPLICATION_JSON_VALUE) // добавляем к пути id и предоставляем данные в JSON
+    @GetMapping(path = "/animals/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    // добавляем к пути id и предоставляем данные в JSON
     public ResponseEntity<?> getAnimalById(@PathVariable Long id) {
         Animal animalById = animalService.getAnimalById(id);
         return new ResponseEntity<>(animalById, HttpStatus.OK);

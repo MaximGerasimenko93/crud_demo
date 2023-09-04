@@ -1,13 +1,15 @@
 CREATE TABLE IF NOT EXISTS animals
 (
     id   SERIAL PRIMARY KEY,
-    name VARCHAR(128) NOT NULL UNIQUE
+    name VARCHAR(128) NOT NULL UNIQUE,
+    continent_id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS continents
 (
     id   SERIAL PRIMARY KEY,
-    area VARCHAR(128) NOT NULL UNIQUE
+    area VARCHAR(128) NOT NULL UNIQUE,
+    population_id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS populations

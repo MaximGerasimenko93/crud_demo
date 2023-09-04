@@ -2,6 +2,7 @@ package com.mvger.demo.controller;
 
 import com.mvger.demo.model.Continent;
 import com.mvger.demo.service.ContinentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 public class ContinentController {
 
+    @Autowired
     private ContinentService continentService;
 
     @GetMapping(path = "/continents")

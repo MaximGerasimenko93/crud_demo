@@ -12,19 +12,20 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 @Service
 public class ContinentServiceImpl implements ContinentService {
 
     private final ContinentRepository continentRepository;
 
     @Override
+    @Transactional(readOnly = false)
     public void addContinent(Continent continent) {
         log.info("Добавляем континент в таблицу: ", continent);
         Continent continent1 = continentRepository.save(continent);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Continent getContinentById(Long id) {
         log.info("Вытаскиваем континент по id: ", id);
         return continentRepository.findById(id)
@@ -35,6 +36,7 @@ public class ContinentServiceImpl implements ContinentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Continent> getAllContinents() {
         log.info("Список животных по id: + \n");
         Iterable<Continent> continents = continentRepository.findAll();
@@ -44,12 +46,14 @@ public class ContinentServiceImpl implements ContinentService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void deleteContinentById(Long id) {
         log.info("Удаление континента по id: ", id);
         continentRepository.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void updateContinentById(Long id, String area) {
         log.info("Обновление животного по имени");
        continentRepository.updateAreaById(id, area);

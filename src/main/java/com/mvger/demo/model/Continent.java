@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity // Создаем сущность
 @Data // геттеры, сеттеры, хэшкод, иквалс, тустринг
@@ -18,4 +20,8 @@ public class Continent {
 
     @Column(name = "area")
     private String area;
+
+    @OneToOne
+    @JoinColumn(name = "population_id")
+    private Population population;
 }

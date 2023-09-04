@@ -8,6 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface PopulationRepository extends CrudRepository<Population, Long> {
 
     @Modifying // аннтация нужна, чтобы мы могли делать не только SELECT
-    @Query("")
+    @Query("update Population a set a.number = :number where a.id = :id")
     void updateNumberById(Long id, Integer number);
 }

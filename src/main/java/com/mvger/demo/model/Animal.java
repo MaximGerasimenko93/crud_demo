@@ -1,9 +1,13 @@
 package com.mvger.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.Set;
 
 @Entity // Создаем сущность
 @Data // геттеры, сеттеры, хэшкод, иквалс, тустринг
@@ -19,4 +23,7 @@ public class Animal {
     @Column(name = "name")
     private String name;
 
+    @OneToOne
+    @JoinColumn(name = "continent_id")
+    private Continent continent;
 }
