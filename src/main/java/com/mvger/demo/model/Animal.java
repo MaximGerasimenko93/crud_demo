@@ -23,7 +23,7 @@ public class Animal {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "continent_id")
-    private Continent continent;
+    @ManyToOne
+    @JoinColumn(name = "population_id")
+    private Population population;
 }

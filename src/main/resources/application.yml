@@ -5,19 +5,20 @@ spring:
     password: pass
     driver-class-name: org.postgresql.Driver
 
-sql:
-  init:
-     mode: always
-     data-locations: data.sql
-     schema-locations: schema.sql
+  sql:
+    init:
+      mode: always
+      data-locations: data.sql
+      schema-locations: schema.sql
 
-jpa:
-  generate-ddl: true
-  hibernate:
-    ddl-auto: validate
+  jpa:
+    generate-ddl: true
 
-  properties:
-    hibernate:
-      format_sql: true
-
-  show-sql: true
+#  hibernate:
+#    ddl-auto: validate
+#
+#  properties:
+#    hibernate:
+#    format_sql: true
+#
+#  show-sql: true

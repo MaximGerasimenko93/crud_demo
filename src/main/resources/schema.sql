@@ -1,20 +1,22 @@
-CREATE TABLE IF NOT EXISTS animals
+CREATE TABLE animals
 (
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR(128) NOT NULL UNIQUE,
-    continent_id INTEGER
+    id            SERIAL PRIMARY KEY,
+    name          VARCHAR(128) NOT NULL UNIQUE,
+    population_id INTEGER REFERENCES populations (id)
 );
 
-CREATE TABLE IF NOT EXISTS continents
+CREATE TABLE continents
 (
     id   SERIAL PRIMARY KEY,
-    area VARCHAR(128) NOT NULL UNIQUE,
-    population_id INTEGER
+    area VARCHAR(128) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS populations
+CREATE TABLE populations
 (
-    id   SERIAL PRIMARY KEY,
-    number BIGINT NOT NULL
+    id           SERIAL PRIMARY KEY,
+    number       BIGINT NOT NULL,
+    continent_id INTEGER REFERENCES continents (id)
 );
+
+
 

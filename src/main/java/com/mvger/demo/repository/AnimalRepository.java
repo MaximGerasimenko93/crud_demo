@@ -11,6 +11,4 @@ public interface AnimalRepository extends CrudRepository<Animal, Long> {
     @Modifying // аннотация нужна, чтобы мы могли делать не только SELECT
     @Query("update Animal a set a.name = :name where a.id = :id")
     void updateAnimalById(Long id, String name);
-
-//    TODO: подумать над запросом и подумать над таблицами. Правильно ли сделал
 }

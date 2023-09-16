@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import java.util.List;
+
 @Entity // Создаем сущность
 @Data // геттеры, сеттеры, хэшкод, иквалс, тустринг
 @NoArgsConstructor // конструктор без аргументов
@@ -21,7 +23,6 @@ public class Continent {
     @Column(name = "area")
     private String area;
 
-    @OneToOne
-    @JoinColumn(name = "population_id")
-    private Population population;
+    @OneToMany(mappedBy = "continent", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Population> populations;
 }
