@@ -2,18 +2,18 @@ package com.mvger.demo.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
-@Entity // Создаем сущность
-@Data // геттеры, сеттеры, хэшкод, иквалс, тустринг
-@NoArgsConstructor // конструктор без аргументов
-@AllArgsConstructor // конструктор с аргументами
-@Table(name = "continents") // Указываем таблицу continents
+@Builder
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "continents")
 public class Continent {
 
     @Id

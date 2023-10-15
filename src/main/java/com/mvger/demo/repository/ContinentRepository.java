@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ContinentRepository extends CrudRepository<Continent, Long> {
 
-    @Modifying // аннтация нужна, чтобы мы могли делать не только SELECT
+    @Modifying
     @Query("update Continent a set a.area = :area where a.id = :id")
     void updateAreaById(Long id, String area);
 }

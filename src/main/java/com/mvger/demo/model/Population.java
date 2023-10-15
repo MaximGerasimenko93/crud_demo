@@ -1,18 +1,19 @@
 package com.mvger.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity // Создаем сущность
-@Data // геттеры, сеттеры, хэшкод, иквалс, тустринг
-@NoArgsConstructor // конструктор без аргументов
-@AllArgsConstructor // конструктор с аргументами
-@Table(name = "populations") // Указываем таблицу populations
+@Builder
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "populations")
 public class Population {
 
     @Id

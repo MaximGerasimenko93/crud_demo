@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.util.AssertionErrors;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -29,9 +30,12 @@ public class PopulationRepositoryTest {
 
     @Test
     void checkUpdatingById() {
-        populationRepository.updateNumberById(1L, 300);
+        Population population = populationRepository.save(Population.builder()
+                .number(300)
+                .build());
+        populationRepository.updateNumberById(POPULATION_ID_FOR_TEST, 300);
         Optional<Population> optionalPopulation = populationRepository.findById(POPULATION_ID_FOR_TEST);
-        assertTrue(optionalPopulation.isPresent());
+        assertThat(population).isEqualTo(optionalPopulation.get());
     }
 
     @Test
@@ -41,7 +45,7 @@ public class PopulationRepositoryTest {
         Population insertedPopulation = populationRepository.save(population);
         Long insertedId = insertedPopulation.getId();
         Optional<Population> optionalPopulation = populationRepository.findById(insertedId);
-        assertThat(population).isEqualTo(optionalPopulation);
+        assertThat(population).isEqualTo(optionalPopulation.get());
     }
 
     @Test
@@ -58,7 +62,7 @@ public class PopulationRepositoryTest {
                 .doesNotThrowAnyException();
 
         Optional<Population> optionalPopulation = populationRepository.findById(POPULATION_ID_FOR_TEST);
-        Assertions.assertEquals(Optional.empty(), optionalPopulation);
+        assertEquals("Удаление", Optional.empty(), optionalPopulation);
     }
 
     @Test

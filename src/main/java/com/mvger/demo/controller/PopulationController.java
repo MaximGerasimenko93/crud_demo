@@ -17,33 +17,29 @@ public class PopulationController {
     PopulationService populationService;
 
     @GetMapping(path = "/populations")
-    public ResponseEntity<?> getPopulations() {
+    public List<Population> getPopulations() {
         List<Population> allPopulations = populationService.getAllPopulations();
-        return new ResponseEntity<>(allPopulations, HttpStatus.OK);
+        return allPopulations;
     }
 
     @GetMapping(path = "/populations/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getPopulationById(@PathVariable Long id) {
+    public Population getPopulationById(@PathVariable Long id) {
         Population populationById = populationService.getPopulationById(id);
-        return new ResponseEntity<>(populationById, HttpStatus.OK);
+        return populationById;
     }
 
     @PostMapping(path = "/populations")
-    public ResponseEntity<?> createPopulation(@RequestBody Population population) {
+    public void createPopulation(@RequestBody Population population) {
         populationService.createPopulation(population);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PutMapping(path = "/populations/{id}")
-    public ResponseEntity<?> updatePopulation(@PathVariable Long id,
-                                             @RequestParam Integer number) {
+    public void updatePopulation(@PathVariable Long id, @RequestParam Integer number) {
         populationService.updatePopulationById(id, number);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(path = "/populations/{id}")
-    public ResponseEntity<?> deletePopulationById(@PathVariable Long id) {
+    public void deletePopulationById(@PathVariable Long id) {
         populationService.deletePopulationById(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

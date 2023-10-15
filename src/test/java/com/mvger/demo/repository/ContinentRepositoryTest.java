@@ -28,9 +28,12 @@ public class ContinentRepositoryTest {
 
     @Test
     void checkUpdatingById() {
-        continentRepository.updateAreaById(1L, "Австралия");
+        Continent continent = continentRepository.save(Continent.builder()
+                .area("Австралия")
+                .build());
+        continentRepository.updateAreaById(CONTINENT_ID_FOR_TEST, "Австралия");
         Optional<Continent> optionalContinent = continentRepository.findById(CONTINENT_ID_FOR_TEST);
-        assertTrue(optionalContinent.isPresent());
+        assertThat(continent).isEqualTo(optionalContinent.get());
     }
 
     @Test
@@ -40,7 +43,7 @@ public class ContinentRepositoryTest {
         Continent insertedContinent = continentRepository.save(continent);
         Long insertedId = insertedContinent.getId();
         Optional<Continent> optionalContinent = continentRepository.findById(insertedId);
-        assertThat(continent).isEqualTo(optionalContinent);
+        assertThat(continent).isEqualTo(optionalContinent.get());
     }
 
     @Test
@@ -65,6 +68,6 @@ public class ContinentRepositoryTest {
         Iterable<Continent> all = continentRepository.findAll();
         ArrayList<Continent> continents = new ArrayList<>();
         all.forEach(continents::add);
-        assertEquals("Соответствие", continents.get(0), continents.get(0).getArea().equals("Австралия"));
+        assertThat(continents.get(0).getArea()).isEqualTo("Австралия");
     }
 }

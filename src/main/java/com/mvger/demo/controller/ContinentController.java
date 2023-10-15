@@ -17,34 +17,30 @@ public class ContinentController {
     private ContinentService continentService;
 
     @GetMapping(path = "/continents")
-    public ResponseEntity<?> getContinents() {
+    public List<Continent> getContinents() {
         List<Continent> allContinents = continentService.getAllContinents();
-        return new ResponseEntity<>(allContinents, HttpStatus.OK);
+        return allContinents;
     }
 
     @GetMapping(path = "/continents/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getContinentById(@PathVariable Long id) {
+    public Continent getContinentById(@PathVariable Long id) {
         Continent continentById = continentService.getContinentById(id);
-        return new ResponseEntity<>(continentById, HttpStatus.OK);
+        return continentById;
     }
 
     @PostMapping(path = "/continents")
-    public ResponseEntity<?> createContinent(@RequestBody Continent continent) {
+    public void createContinent(@RequestBody Continent continent) {
         continentService.addContinent(continent);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PutMapping(path = "/continents/{id}")
-    public ResponseEntity<?> updateContinent(@PathVariable Long id,
-                                          @RequestParam String name) {
+    public void updateContinent(@PathVariable Long id, @RequestParam String name) {
         continentService.updateContinentById(id, name);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(path = "/continents/{id}")
-    public ResponseEntity<?> deleteContinentById(@PathVariable Long id) {
+    public void deleteContinentById(@PathVariable Long id) {
         continentService.deleteContinentById(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
 

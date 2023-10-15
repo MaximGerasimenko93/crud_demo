@@ -10,10 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j // для логгирования
+@Slf4j
 @RequiredArgsConstructor
-@Service // реализуем сервис
-// @Transactional(readOnly = true) – не нужно было ставить эт аннотацию над классом. Получается, что у нас идет только считывание
+@Service
 public class AnimalServiceImpl implements AnimalService {
 
     private final AnimalRepository animalRepository;

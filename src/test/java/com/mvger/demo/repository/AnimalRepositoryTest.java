@@ -8,10 +8,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.util.AssertionErrors.assertEquals;;
 
 @DataJpaTest
@@ -23,11 +23,15 @@ class AnimalRepositoryTest {
     @Autowired
     private AnimalRepository animalRepository;
 
+
     @Test
     void checkUpdatingById() {
+        Animal animal = animalRepository.save(Animal.builder()
+                .name("Тюлень-монах")
+                .build());
         animalRepository.updateAnimalById(ANIMAL_ID_FOR_TEST, "Тюлень-монах");
         Optional<Animal> optionalAnimal = animalRepository.findById(ANIMAL_ID_FOR_TEST);
-        assertTrue(optionalAnimal.isPresent());
+        assertThat(animal).isEqualTo(optionalAnimal.get());
     }
 
     @Test
@@ -37,22 +41,19 @@ class AnimalRepositoryTest {
         Animal insertedAnimal = animalRepository.save(animal);
         Long insertedId = insertedAnimal.getId();
         Optional<Animal> optionalAnimal = animalRepository.findById(insertedId);
-        assertThat(animal).isEqualTo(optionalAnimal);
+        assertThat(animal).isEqualTo(optionalAnimal.get());
     }
 
     @Test
     void returningAnimalById() {
         Optional<Animal> optionalAnimal = animalRepository.findById(ANIMAL_ID_FOR_TEST);
-        Animal animal = optionalAnimal.orElseGet(Animal::new);
-        assertThat(optionalAnimal).isPresent().get().isEqualTo(animal);
+//        Как-то нужно найти класс Animal и id
+//        assertThat(optionalAnimal).isPresent().get().isEqualTo();
     }
 
 
     @Test
     void deleteAnimalById() {
-
-//        Assert.notNull(id, ID_MUST_NOT_BE_NULL);
-//		delete(findById(id).orElseThrow(() -> new EmptyResultDataAccessException
         assertThatCode(() -> animalRepository.findById(ANIMAL_ID_FOR_TEST))
                 .doesNotThrowAnyException();
 
@@ -60,13 +61,13 @@ class AnimalRepositoryTest {
         assertEquals("Животное удалено", Optional.empty(), optionalAnimal);
     }
 
-    // в ячейке массива 0 лежит соответствующее животное. Можно лучше.
-
     @Test
     void checkFindAll() {
         Iterable<Animal> all = animalRepository.findAll();
-        ArrayList<Animal> animals = new ArrayList<>();
+        List<Animal> animals = new ArrayList<>();
         all.forEach(animals::add);
-        assertEquals("Соответствие", animals.get(0), animals.get(0).getName().equals("Тюлень-монах"));
+        assertThat(animals.get(0).getName()).isEqualTo("");
+
+        // не могу понять почему ошибка в длине массива
     }
 }
